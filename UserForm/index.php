@@ -45,7 +45,7 @@ session_start();
                                 <input type="text" name="phone" id="phone" placeholder="Your Phone Number"/>
                             </div>
                             <div class="form-group">
-                                <label for="text"><i class="fa fa-map-marker" aria-hidden="true"></i></label>
+                                <label for="Adress"><i class="zmdi zmdi-home" aria-hidden="true"></i></label>
                                 <input type="text" name="adress" id="adress" placeholder="Your Adress"/>
                             </div>
                             <div class="form-group">
@@ -86,8 +86,8 @@ session_start();
                         <h2 class="form-title">Sign In</h2>
                         <form method="POST" class="register-form" id="login-form" action="">
                             <div class="form-group">
-                                <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="your_name" id="your_name" placeholder="Your Name"/>
+                                <label for="your_email"><i class="zmdi zmdi-email"></i></label>
+                                <input type="email" name="your_email" id="your_email" placeholder="Your Email"/>
                             </div>
                             <div class="form-group">
                                 <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
@@ -129,11 +129,53 @@ session_start();
         if ($Password ==  $RePassword) {
             $Insert_query = "INSERT INTO `tbl_user`(`Name`, `Email`, `Phone`, `Adress`, `Password`) 
             VALUES ('$Name','$Email','$Phone','$Adress','$Password')";
+            $Run_query = mysqli_query($conn,$Insert_query);
+
+            if ($Run_query == true) {
+                echo 
+                    "<script>
+                            alert('You are Registered Successfully')
+                    </script>";
+            } 
+            else{
+                echo mysqli_error($conn);
+            }
+            
+     
+            
+        } else {
+            echo 
+                "<script>
+                        alert('Something Went Wrong!')
+                        window.location.href='Index.php'
+                </script>";
         }
         
-        else{
+    }
 
-        }
+    if(isset($_POST["signin"])){
+
+      $SignIn_Email = $_POST["your_email"];  
+      $SignIn_Password = $_POST["your_pass"]; 
+
+      $Select_SignIn = "SELECT * FROM `tbl_user` WHERE Email = '$SignIn_Email' and Password = '$SignIn_Password' ";
+      $Run_SignIn = mysqli_query($conn,$Select_SignIn);
+      $Count_SignIn = mysqli_num_rows($Run_SignIn);
+      if ($Count_SignIn == 1) {
+        $Convert_Array = mysqli_fetch_array($Run_SignIn);
+        $_SESSION["name"] = $Convert_Array[1];
+        echo
+            "<script>
+                window.location.href = '../Usertheme/Index.php'
+            </script>";
+       
+      } else {
+        echo
+        "<script>
+            alert('Invalid Credentials')
+        </script>";
+      }
+      
     }
 
 

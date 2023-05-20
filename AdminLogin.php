@@ -1,4 +1,5 @@
-<?phprequire_once('Config.php'); 
+<?php 
+ require_once('Config.php'); 
  session_start();
  ?>
 <style> 
@@ -15,7 +16,7 @@ body{
 .main{
 	width: 350px;
 	height: 500px;
-	background: red;
+	background: ;
 	overflow: hidden;
 	background: url("https://doc-08-2c-docs.googleusercontent.com/docs/securesc/68c90smiglihng9534mvqmq1946dmis5/fo0picsp1nhiucmc0l25s29respgpr4j/1631524275000/03522360960922298374/03522360960922298374/1Sx0jhdpEpnNIydS4rnN4kHSJtU1EyWka?e=view&authuser=0&nonce=gcrocepgbb17m&user=03522360960922298374&hash=tfhgbs86ka6divo3llbvp93mg4csvb38") no-repeat center/ cover;
 	border-radius: 10px;
@@ -111,23 +112,89 @@ button:hover{
 		<input type="checkbox" id="chk" aria-hidden="true">
 
 			<div class="signup">
-				<form>
+				<form method="post" action="">
 					<label for="chk" aria-hidden="true">Sign up</label>
-					<input type="text" name="txt" placeholder="User name" required="">
+					<input type="text" name="name" placeholder="User name" required="">
 					<input type="email" name="email" placeholder="Email" required="">
-					<input type="password" name="pswd" placeholder="Password" required="">
-					<button>Sign up</button>
+					<input type="password" name="password" placeholder="Password" required="">
+					<button name="btn_Signup" type="submit" >Sign up</button>
 				</form>
 			</div>
 
 			<div class="login">
-				<form>
+				<form method="post" action="">
 					<label for="chk" aria-hidden="true">Login</label>
 					<input type="email" name="email" placeholder="Email" required="">
-					<input type="password" name="pswd" placeholder="Password" required="">
-					<button>Login</button>
+					<input type="password" name="password" placeholder="Password" required="">
+					<button name="btn_Signin" type="submit">Login</button>
 				</form>
 			</div>
 	</div>
+
+
+	<?php
+	if (isset($_POST["btn_Signup"])){
+		$Name = $_POST["name"];
+		$Email = $_POST["email"];
+		$Password = $_POST["password"];
+
+		$Insert_query = "INSERT INTO `tbl_admin`(`Name`, `Email`, `Password`) 
+		                 VALUES ('$Name','$Email','$Password')";
+		$Run_query = mysqli_query($conn,$Insert_query);
+		
+		if($Run_query==true){
+			echo "<script>
+			alert('Your Accout Created!')
+			window.location.href='adminPanel/pages/Dashboard.php'
+			</script>";
+		 }
+		 else{
+			echo "<script>
+			alert('".mysqli_error($conn)."')
+			window.location.href='AdminLogin.php'
+			</script>";
+		 }
+
+	} 
+	if(isset($_POST["btn_Signin"])){
+     
+ 
+
+        
+        $_SESSION["Useremail"] = $_POST["email"];
+        $_SESSION["UserPassword"] = $_POST["password"];
+    
+        $Select_SignIn = "SELECT * FROM `tbl_admin` WHERE `Email`= '".$_SESSION["Useremail"]."' and `Password`= '".$_SESSION["UserPassword"]."'";
+        $Run_SignIn = mysqli_query($conn,$Select_SignIn);
+        $Count_SignIn = mysqli_num_rows($Run_SignIn);
+    
+        if($Count_SignIn > 0 ){
+            echo "<script>
+            alert('You are login As a Admin!');
+            window.location.href='AdminPanel/pages/dashboard.php';
+            
+            </script>";
+
+    
+        }
+        else{
+            echo "<script>
+            alert('".mysqli_error($conn)." ')
+          
+            
+            </script>";
+
+        }
+    
+
+
+
+    }
+	
+	
+	
+	
+	
+	?>
 </body>
 </html>

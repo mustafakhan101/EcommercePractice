@@ -1,6 +1,10 @@
 <?php
   require_once "../../config.php";
   session_start();
+  if(!isset($_SESSION["Useremail"] ) && !(isset($_SESSION["UserPassword"]))){
+    header("location:../../AdminLogin.php");
+  }
+  
 ?>
 <!DOCTYPE html>
 <html lang="en">

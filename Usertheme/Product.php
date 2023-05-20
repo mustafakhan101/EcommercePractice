@@ -1,3 +1,17 @@
+<?php
+
+session_start();
+error_reporting(0);
+if(!isset($_SESSION["MyCart"])){
+   $_SESSION["MyCart"] = array();
+}
+
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html>
    <head>
@@ -47,6 +61,15 @@
 
          <section class="product_section layout_padding">
          <div class="container">
+            <?php
+               if(isset($_SESSION["message"])){?>
+               <div class="alert alert-success" role="alert">
+                  <?php echo $_SESSION["message"]; ?>
+               </div>
+               <?php
+                  unset($_SESSION["message"]);
+                 }
+                ?>
             <div class="heading_container heading_center">
                <h2>
                   Our <span>products</span>
@@ -125,8 +148,8 @@
                            <a href="" class="option1">
                            <?php echo $Covert_Array[1]; ?>
                            </a>
-                           <a href="" class="option2">
-                           Buy Now
+                           <a href="AddCart.php?Pro_Id=<?php echo $Covert_Array[0]; ?>" class="option2">
+                           Add to Cart 
                            </a>
                         </div>
                      </div>

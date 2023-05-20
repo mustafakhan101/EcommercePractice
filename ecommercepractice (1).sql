@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 13, 2023 at 07:57 AM
+-- Generation Time: May 19, 2023 at 09:22 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -53,6 +53,13 @@ CREATE TABLE `tbl_admin` (
   `Password` varchar(50) NOT NULL,
   `IsActive` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_admin`
+--
+
+INSERT INTO `tbl_admin` (`Id`, `Name`, `Email`, `Password`, `IsActive`) VALUES
+(1, 'Mustafa Khan', 'mustafanana431@gmail.com', '12345', 0);
 
 -- --------------------------------------------------------
 
@@ -113,17 +120,19 @@ CREATE TABLE `tbl_employee` (
   `Emp_Gender` varchar(4) NOT NULL,
   `Emp_Salaray` bigint(20) NOT NULL,
   `Emp_Depart` varchar(30) NOT NULL,
-  `Emp_Image` varchar(300) NOT NULL
+  `Emp_Image` varchar(300) NOT NULL,
+  `Emp_Password` varchar(40) NOT NULL,
+  `Emp_Status` varchar(20) NOT NULL DEFAULT 'Approved'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_employee`
 --
 
-INSERT INTO `tbl_employee` (`Emp_Id`, `Emp_Name`, `Emp_Email`, `Emp_Address`, `Emp_Number`, `Emp_Gender`, `Emp_Salaray`, `Emp_Depart`, `Emp_Image`) VALUES
-(2, 'Anas', 'anas44@gmail.com', 'Islamabad', '034356887654332', 'Male', 345, 'Hr', '../../EmployeeImages/7.jpg'),
-(3, 'Mustafa', 'mustafanana431@gmail.com', 'Karachi', '0324858903', 'Male', 3367788543, 'HR', '../../EmployeeImages/Abc.jpg'),
-(4, 'Ali', 'moeed12@gmail.com', 'Islamabad', '032314546645', 'Male', 450000, 'Sales', '../../EmployeeImages/Screenshot (5).png');
+INSERT INTO `tbl_employee` (`Emp_Id`, `Emp_Name`, `Emp_Email`, `Emp_Address`, `Emp_Number`, `Emp_Gender`, `Emp_Salaray`, `Emp_Depart`, `Emp_Image`, `Emp_Password`, `Emp_Status`) VALUES
+(2, 'Anas', 'anas44@gmail.com', 'Islamabad', '034356887654332', 'Male', 345, 'Hr', '../../EmployeeImages/7.jpg', '', 'Approved'),
+(3, 'Mustafa', 'mustafanana431@gmail.com', 'Karachi', '0324858903', 'Male', 3367788543, 'HR', '../../EmployeeImages/Abc.jpg', '12345', 'Approved'),
+(4, 'Ali', 'moeed12@gmail.com', 'Islamabad', '032314546645', 'Male', 450000, 'Sales', '../../EmployeeImages/Screenshot (5).png', '', 'Approved');
 
 -- --------------------------------------------------------
 
@@ -203,6 +212,14 @@ CREATE TABLE `tbl_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `tbl_user`
+--
+
+INSERT INTO `tbl_user` (`Id`, `Name`, `Email`, `Phone`, `Adress`, `Password`) VALUES
+(1, 'Mustafa Khan', 'mustafanana431@gmail.com', '03162037737', 'karachi', '12345'),
+(2, 'Mustafa Khan', 'mustafanana431@gmail.com', '03162037737', 'karachi', '123');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -269,7 +286,7 @@ ALTER TABLE `tbl_about`
 -- AUTO_INCREMENT for table `tbl_admin`
 --
 ALTER TABLE `tbl_admin`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tbl_category`
@@ -305,7 +322,7 @@ ALTER TABLE `tbl_product`
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
